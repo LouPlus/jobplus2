@@ -1,6 +1,6 @@
 from flask import Flask
 from jobplus.config import configs
-#from jobplus.models import db, User
+from jobplus.models import db, User, Company, Job, Apply
 
 # def register_extensions(app):
 #   db.init_app(app)
@@ -14,13 +14,13 @@ from jobplus.config import configs
 #    login_manager.login_view = 'front.login'
 
 def register_blueprints(app):
-    from .handlers import front
+    from .handlers import front,user, company, job,admin
     app.register_blueprint(front)
 
-#    app.register_blueprint(User)
-#    app.register_blueprint(job)
-#    app.register_blueprint(company)
-#    app.register_blueprint(admin)
+    app.register_blueprint(user)
+    app.register_blueprint(job)
+    app.register_blueprint(company)
+    app.register_blueprint(admin)
 #    app.register_blueprint(test)
 
 
@@ -32,7 +32,7 @@ def create_app(config):
     
     register_blueprints(app)
     
-    #db.init_app(app)
+    db.init_app(app)
     #register_extension(app)
     #register_extension(app)
 
