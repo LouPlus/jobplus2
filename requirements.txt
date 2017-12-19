@@ -1,6 +1,5 @@
 flask 
-flask-sqlalchemy 
-mysqlclien
+mysqlclient
 Flask-Login==0.4.1
 Flask-Migrate==2.1.1
 Flask-SQLAlchemy==2.3.2
