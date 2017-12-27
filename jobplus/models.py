@@ -143,8 +143,8 @@ class ProjectExperience(Experience):
     resume = db.relationship('Resume', uselist=False)
 
 
-class CompanyDetail(Base):
-    __tablename__ = 'company_detail'
+class Company(Base):
+    __tablename__ = 'company'
 
     id = db.Column(db.Integer, primary_key=True)
     logo = db.Column(db.String(256), nullable=False)

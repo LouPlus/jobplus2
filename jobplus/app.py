@@ -1,6 +1,6 @@
 from flask import Flask
 from jobplus.config import configs
-from jobplus.models import db, User, Company, Job, Apply
+from jobplus.models import db, User, Company
 
 # def register_extensions(app):
 #   db.init_app(app)
