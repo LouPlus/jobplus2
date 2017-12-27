@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import render_pagination, render_company, render_job %}
+
 
 {% block title %}Home{% endblock %}
 
@@ -18,9 +18,8 @@
 </ul>
 
 <div class="job-list">
-  {% for job in newest_jobs %}
-    {{ render_job(job) }}
-  {% endfor %}
+	<p> 展示最新职位， 但是先不做判断。 12-27<p>
+	
 </div>
 
 <p class="list-more">
@@ -32,9 +31,8 @@
 </ul>
 
 <div class="company-list">
-  {% for company in newest_companies %}
-  {{ render_company(company) }}
-  {% endfor %}
+	<p> 展示 公司职位<p>
+	
 </div>
 
 <p class="list-more">
