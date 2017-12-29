@@ -1,14 +1,15 @@
 import os 
 from flask import url_for
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField,
-BooleanField, ValidationError, IntegerField, TextAreField, SelectField
-from flask_wtf.file import Length, Email, EqualTo, Required
-from jobplus.models import db, User
+from wtforms import StringField, PasswordField, SubmitField ,\
+        BooleanField, ValidationError, IntegerField, TextAreaField, SelectField
+from flask_wtf.file import FileField, FileRequired
+from wtforms.validators import Length, Email, EqualTo, Required
+from jobplus.models import db, User, Company
 
 class UserProfileForm(FlaskForm):
     real_name = StringField('name',[Required()])
-    email = StringField('e-mail', validators=['Required()',Email()]
+    email = StringField('e-mail', validators=['Required()',Email()])
     password = PasswordField('password(default)')
     phone = StringField('phone number')
     work_years = IntegerField('work span')
@@ -62,13 +63,13 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    name = StirngField('username', validators=[Required(),Length(3,24)])
+    name = StringField('username', validators=[Required(),Length(3,24)])
     emial = StringField('e-mail', validators=[Required(),Email()])
     password = PasswordField('password',validators=[Required(),Length(6,24)])
-    repeat_password = PasswordField('repeat', validators=[Required(),EqulaTO('password')])
+    repeat_password = PasswordField('repeat', validators=[Required(),EqualTo('password')])
     submit = SubmitField('submit')
 
-    def validate_username(self, field)
+    def validate_username(self, field):
         if User.query.filter_by(name=field.data).first():
             raise ValidationError('name exits')
 
