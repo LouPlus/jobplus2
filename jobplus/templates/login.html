@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% from "macros1.html" import render_form %}
 
 
 {% block title %}
@@ -10,6 +10,7 @@ Login
 {% block body %}
 <div class="form">
     <h2> Login </h2>
+    {{ render_form(form, url_for('front.login')) }}
 </div>
 
 {% endblock %}

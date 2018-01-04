@@ -48,19 +48,18 @@ def user_register():
 
 @front.route('/companyregister', methods=['GET','POST'])
 def company_register():
-#    form = RegisterForm()
-#    form.name.label = u'company name'
-#
-#    if form.validate_on_submit():
-#
-#        company_user = form.create_user()
-#        company_user.role = User.ROLE_COMPANY
-#
-#        db.session.add(company_user)
-#        db.session.commit()
-#
-#        flash('regiser , ok', 'success')
-#        return redirectr(url_for('.loing'))
-#    return render_template('company_register.html', form=form)
+    form = RegisterForm()
+    form.name.label = u'company name'
 
-    return render_template('company_register.html')
+    if form.validate_on_submit():
+
+        company_user = form.create_user()
+        company_user.role = User.ROLE_COMPANY
+
+        db.session.add(company_user)
+        db.session.commit()
+
+        flash('regiser , ok', 'success')
+        return redirectr(url_for('.loing'))
+    return render_template('company_register.html', form=form)
+
