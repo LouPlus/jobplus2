@@ -38,14 +38,13 @@ def login():
 
 @front.route('/userregister',methods=['GET', 'POST'])
 def user_register():
-#    form = RegisterForm()
-#    if form.validate_on_submit():
-#        form.create_user()
-#        flash('regiser successful, please login', 'success')
-#
-#        return redirect(url_for('.login'))
-#    return render_template('user_register.html', form=form)
-    return render_template('user_register.html')
+    form = RegisterForm()
+    if form.validate_on_submit():
+        form.create_user()
+        flash('regiser successful, please login', 'success')
+
+        return redirect(url_for('.login'))
+    return render_template('user_register.html', form=form)
 
 @front.route('/companyregister', methods=['GET','POST'])
 def company_register():
