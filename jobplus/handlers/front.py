@@ -21,18 +21,47 @@ def index():
 @front.route('/login',methods=['GET','POST'])
 def login():
     form = LoginForm()
-#    if form.validate_on_submit():
-#        user = User.query.filter_by(email=form.email.data).first()
-#        if user.is_disable:
-#            flask('user is disabel')
-#            return redirect(url_for('front.login'))
-#        else:
-#            login_user(user, form.remeber_me.data)
-#            next = 'user.profile'
-#
-#            if user.is_admin:
-#                next = 'admin.index'
-#            elif user.is_company:
-#                next = 'company.profile'
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user.is_disable:
+            flask('user is disabel')
+            return redirect(url_for('front.login'))
+        else:
+            login_user(user, form.remeber_me.data)
+            next = 'user.profile'
+
+            if user.is_admin:
+                next = 'admin.index'
+            elif user.is_company:
+                next = 'company.profile'
     return render_template('login.html', form=form)
 
+@front.route('/userregister',methods=['GET', 'POST'])
+def user_register():
+#    form = RegisterForm()
+#    if form.validate_on_submit():
+#        form.create_user()
+#        flash('regiser successful, please login', 'success')
+#
+#        return redirect(url_for('.login'))
+#    return render_template('user_register.html', form=form)
+    return render_template('user_register.html')
+
+@front.route('/companyregister', methods=['GET','POST'])
+def company_register():
+#    form = RegisterForm()
+#    form.name.label = u'company name'
+#
+#    if form.validate_on_submit():
+#
+#        company_user = form.create_user()
+#        company_user.role = User.ROLE_COMPANY
+#
+#        db.session.add(company_user)
+#        db.session.commit()
+#
+#        flash('regiser , ok', 'success')
+#        return redirectr(url_for('.loing'))
+#    return render_template('company_register.html', form=form)
+
+    return render_template('company_register.html')
