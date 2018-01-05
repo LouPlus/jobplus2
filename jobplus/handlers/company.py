@@ -10,6 +10,7 @@ company = Blueprint('company',__name__, url_prefix='/company')
 @company.route('/')
 def index():
 
-    return " company html is doing ok"
+    return render_template('cmp/cmp_front.html')
+#    return "hollow"
 
 

@@ -11,6 +11,10 @@ job = Blueprint('job',__name__, url_prefix='/job')
 @job.route('/')
 def index():
 
-    return "job is doing fine "
+    return render_template('job/job.html')
 
 
+@job.route('/joblist')
+def job_list():
+
+    return render_template('job/job_list.html')
