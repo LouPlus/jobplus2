@@ -48,7 +48,7 @@ class User(Base, UserMixin):
     resume_url = db.Column(db.String(64))
 
     # 企业用户详情
-    detail = db.relationship('CompanyDetail', uselist=False)
+    detail = db.relationship('Company', uselist=False)
 
     is_disable = db.Column(db.Boolean, default=False)
 
