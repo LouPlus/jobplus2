@@ -52,19 +52,19 @@ class LoginForm(FlaskForm):
     submit = SubmitField('submit')
 
     def validate_email(self, field):
-        if fild.data and not User.query.filter_by(email=field.data).first():
+        if field.data and not User.query.filter_by(email=field.data).first():
             raise ValidationError('email hav\'t register yet')
 
     def validate_password(self, field):
         user = User.query.filter_by(email=self.email.data).first()
 
-        if user and not user.check_passwrod(field.data):
+        if user and not user.check_password(field.data):
             raise ValidationError('Erroe password')
 
 
 class RegisterForm(FlaskForm):
     name = StringField('username', validators=[Required(),Length(3,24)])
-    emial = StringField('e-mail', validators=[Required(),Email()])
+    email = StringField('e-mail', validators=[Required(),Email()])
     password = PasswordField('password',validators=[Required(),Length(6,24)])
     repeat_password = PasswordField('repeat', validators=[Required(),EqualTo('password')])
     submit = SubmitField('submit')
