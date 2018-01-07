@@ -48,6 +48,8 @@ def login():
                 next = 'admin.index'
             elif user.is_company:
                 next = 'company.profile'
+
+            return redirect(url_for(next))
     return render_template('login.html', form=form)
 
 @front.route('/userregister',methods=['GET', 'POST'])
@@ -74,6 +76,6 @@ def company_register():
         db.session.commit()
 
         flash('regiser , ok', 'success')
-        return redirectr(url_for('.loing'))
+        return redirect(url_for('front.login'))
     return render_template('company_register.html', form=form)
 

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% from "macros1.html" import render_form %}
+
+{% block body %}
+<h3> edit personal info </h3>
+{{ render_form(form, url_for('user.profile'), upload_file='yes') }}
+
+{% endblock %}
+
