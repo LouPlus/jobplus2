@@ -79,3 +79,11 @@ def company_register():
         return redirect(url_for('front.login'))
     return render_template('company_register.html', form=form)
 
+@front.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('you have successful logout', 'success')
+
+    return redirect(url_for('.index'))
+
