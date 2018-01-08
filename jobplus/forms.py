@@ -5,7 +5,8 @@ from wtforms import StringField, PasswordField, SubmitField ,\
         BooleanField, ValidationError, IntegerField, TextAreaField, SelectField
 from flask_wtf.file import FileField, FileRequired
 from wtforms.validators import Length, Email, EqualTo, Required
-from jobplus.models import db, User, Company
+from jobplus.models import db, User, Company, Job
+
 
 class UserProfileForm(FlaskForm):
     real_name = StringField('name',[Required()])
@@ -84,4 +85,42 @@ class RegisterForm(FlaskForm):
         db.session.add(user)
         db.session.commit()
         return user
+
+class CompanyProfileForm(FlaskForm):
+
+    name = StringField('Company name')
+    email = StringField('e-mail', validators=[Required(), Email()])
+    phone = StringField('phone number')
+    password = PasswordField('password(remain zero)')
+    slug = StringField('Slug', validators=[Required(), Length(3, 24)])
+    location = StringField('address', validators=[Length(0, 64)])
+    site = StringField('Logo')
+    description = StringField('description', validators=[Length(0, 100)])
+    about = TextAreaField('company', validators=[Length(0, 1024)])
+    submit = SubmitField('submit')
+
+    def validate_phone(self, field):
+        phone = field.data
+        if phone[:2] not in ('13', '15', '18') and len(phone) != 11:
+            raise ValidationError('please input valid phone number')
+
+    def updated_profile(self, user):
+
+        user.anme = self.name.data
+        user.email = self.email.datar
+        if self.password.data:
+            user.password = self.password.data
+
+        if user.detail:
+            detail = user.detail 
+
+        else:
+            detail = CompanyDetail()
+            detail.user_id = user.id
+
+        self.populate_obj(detail)
+
+        db.session.add(user)
+        db.session.add(detail)
+        db.session.commit()
 

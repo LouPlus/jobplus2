@@ -42,14 +42,14 @@ def login():
             return redirect(url_for('front.login'))
         else:
             login_user(user, form.remeber_me.data)
-            next = 'user.profile'
-
-            if user.is_admin:
-                next = 'admin.index'
-            elif user.is_company:
-                next = 'company.profile'
-
-            return redirect(url_for(next))
+#            next = 'user.profile'
+#
+##            if user.is_admin:
+#                next = 'admin.index'
+#            elif user.is_company:
+#                next = 'company.profile'
+#           return redirect(url_for(next))
+            return redirect(url_for('front.index'))
     return render_template('login.html', form=form)
 
 @front.route('/userregister',methods=['GET', 'POST'])
