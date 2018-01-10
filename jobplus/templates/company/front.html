@@ -1,5 +1,21 @@
 {% extends "base.html" %}
+{% from "macros1.html" import render_pagination, render_company %}
+
+{% block title %} Company {% endblock %}
 
 <h2> This is Company home page<h2>
 
+{% block body %}
+<div class="jumbotron">
+    <h1>Todo: Company </h1>
+</div>
+
+<div class="company-list">
+{% for company in pagination.items %}
+    {{ render_company(company) }}
+{% endfor %}
+</div>
+
+{{ render_pagination(pagination, 'company.front') }}
+{% endblock %}
 

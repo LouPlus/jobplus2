@@ -11,8 +11,19 @@ company = Blueprint('company',__name__, url_prefix='/company')
 
 @company.route('/')
 def index():
+    
+    page = request.args.get('page', 1, type=int)
+    pagination = User.query.filter(
+            User.role==User.ROLE_COMPANY
+            ).order_by(User.created_at.desc()).paginate(
+                    page=page,
+                    per_page=12,
+                    error_out=False
+                    )
+    return render_template('company/front.html',
+            pagination=pagination, active='company')
 
-    return render_template('company/front.html')
+#    return render_template('company/front.html')
 #    return "hollow"
 
 @company.route('/profile/',methods=['GET', 'POST'])
@@ -40,4 +51,17 @@ def profile():
 #        return redirect(url_for('front.index'))
 #    return render_template('company/profile.html', form=form)
 
+@company.route('/<int:company_id>')
+def detail(company_id):
+    comapny = User.query.get_or_404(company_id)
+    if not company.is_comapny:
+        abort(404)
+    return render_template('company/detail.html', company=company,active='',panel='about')
+
+@company.route('/<int:company_id>/jobs')
+def company_jobs(company_id):
+    company = User.query.get_or_404(company_id)
+    if not company.is_company:
+        abort(404)
+    return render_template('company/detail.html', company=company,active='',panel='job')
 
