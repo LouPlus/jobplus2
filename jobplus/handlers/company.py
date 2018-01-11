@@ -53,8 +53,8 @@ def profile():
 
 @company.route('/<int:company_id>')
 def detail(company_id):
-    comapny = User.query.get_or_404(company_id)
-    if not company.is_comapny:
+    company = User.query.get_or_404(company_id)
+    if not company.is_company:
         abort(404)
     return render_template('company/detail.html', company=company,active='',panel='about')
 
@@ -64,4 +64,5 @@ def company_jobs(company_id):
     if not company.is_company:
         abort(404)
     return render_template('company/detail.html', company=company,active='',panel='job')
+
 

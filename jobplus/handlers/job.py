@@ -24,3 +24,6 @@ def job_list():
 
     return render_template('job/job_list.html',\
             pagination=jobs, active='job')
+
+
+

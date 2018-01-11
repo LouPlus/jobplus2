@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ company.name }}
+{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+    <div clas"container">
+        <div class="col-md-3">
+            <div class="thumbnail">
+                <img src="{{ company.detail.logo }}">
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h2>{{ company.name }}</h2>
+            <p>{{ company.detail.description }}</p>
+            <a href="{{ company.detail.site }}">{{ company.detail.site }}</a>
+        </div>
+    <div>
+<div>
+{% endblock %}
+
+{% block body %}
+<div class="col-md8">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="{% if panel == 'about' %}active{% endif %}"> <a href="{{ url_for('company.detail',company_id=company.id) }}">comanny introduction</a></li>
+        <li role="presentaion" class="{% if panel == 'job' %}active{% endif %}"><a href="{{ url_for('company.company_jobs',company_id=company.id) }}">       incrutment jobs hunting ({{ company.enable_jobs.count() }})</a></li>
+    </ul>
+        <div class="company-detail">
+            {% if panel == 'about' %}
+            {{ company.detail.about }}
+            {% else %}
+            {% for job in company.enable_jobs %}
+            <div class="job-item">
+                <a href="{{ url_for('job.detail', job_id=job.id) }}">
+                <h4>{{ job.name }}</h4>
+                <p>
+                    <span class="job-salary">{{ job.salary_low }}-{{ job.salary_hig }}</span>
+                    &nbsp;
+                    <span class="job-meta">exprience{{job.experience_requirement }}{% if not job.experience_requirement =='buxian' %}years{% endif %}/{{job.degree_requirement }}</span>
+                </p>
+            </a>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        <h4> Comapny's basic info </h4>
+        <p> field :{{ company.detail.field }}</p>
+        <p> finaianl : {{ company.detail.finance_stage }}</p>
+        <p>city : {{ company.detail.location }}</p>
+    </div>
+{% endblock %}
+
