@@ -1,0 +1,51 @@
+{% extends "company/admin_base.html" %}
+
+{% block operation %}
+<a href="{{ url_for('company.admin_publish_job', 
+    company_id=company_id }}" type="button" class="btn btn-success btn-admin">send out opening</a>
+{% endblock %}
+
+{% block admin %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>company's name</th>
+            <th>distrbute time </th>
+            <th>status </th>
+        </tr>
+        <tbody>
+        {% for job in pagination.items %}
+        <tr>
+            <td>{{ job.id}}</td>
+            <td>{{ job.name }}</td>
+            <td>{{ job.company.name }}</td>
+            <td>{{ job.created_at }}</td>
+            <td>
+                <div class="btn-group" role="group">
+                    {% if not job.is_disable %}
+                    <a href="{{ url_for('job.disable', job_id=job.id) }}"type="button" class="btn btn-default">
+                        disable
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('job.enable', job_id=job.id) }}"type="button" class="btn btn-default">
+                        online
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('company.admin_edit_job',
+                        company_id=company_id, job_id=job.id) }}" type="button" class="btn btn-default">
+                        Eidt
+                    </a>
+                    <a href="{{ url_for('company.admin_delete_job',
+                        company_id=company_id, job_id=job.id) }}"type="button" class="btn btn-default">
+                        delete
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </thead>
+</table>
+{% endblock %}
+

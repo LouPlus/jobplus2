@@ -32,7 +32,7 @@
 		<li><a href="#"> 控制台</a></li>
 		{% endif %}
 		
-		{% if current_user.is_authenticated and current_user.is_company %}
+		{% if current_user.is_authenticated and current_user.is_admin  %}
 		<li><a href="#"> 管理</a></li>
 		{% endif %}
 		
