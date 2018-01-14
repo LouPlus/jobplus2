@@ -17,15 +17,16 @@ def index():
     return render_template('admin/index.html')
 
 @admin.route('/users')
-@admin_required
+#@admin_required
 def users():
-    page = request.args.get('page', default=1, type=int)
-    pagination = User.query.paginate(
-            page=page, 
-            per_page=current_app.config['ADMIN_PER_PAGE'],
-            error_out=False
-            )
-    return render_template('admin/user.html', pagination=pagination)
+#    page = request.args.get('page', default=1, type=int)
+#    pagination = User.query.paginate(
+#            page=page, 
+#            per_page=current_app.config['ADMIN_PER_PAGE'],
+#            error_out=False
+#            )
+#    return render_template('admin/user.html', pagination=pagination)
+    return "ok"
 
 @admin.route('/user/create_user', methods=['GET', 'POST'])
 @admin_required
@@ -89,11 +90,12 @@ def disable_user(user_id):
 @admin.route('/jobs')
 @admin_required
 def jobs():
-    page = request.args.get('page', default=1, type=int)
-    pagination = Job.query.paginate(
-            page=page,
-            per_page=current_app.config['ADMIN_PER_PAGE'],
-            error_out=False
-            )
-    return render_template('admin/jobs.html', pagination=pagination)
+#    page = request.args.get('page', default=1, type=int)
+#    pagination = Job.query.paginate(
+#            page=page,
+#            per_page=current_app.config['ADMIN_PER_PAGE'],
+#            error_out=False
+#            )
+#    return render_template('admin/jobs.html', pagination=pagination)
+    return "Ok"
 
