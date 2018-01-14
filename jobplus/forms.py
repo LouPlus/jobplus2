@@ -124,3 +124,92 @@ class CompanyProfileForm(FlaskForm):
         db.session.add(detail)
         db.session.commit()
 
+class UserEditForm(FlaskForm):
+    emial = StringField('e-mail', validators=[Required(), Email()])
+    password = PasswordField('password')
+    real_name = StringField('name')
+    phone = StringField('phone')
+    submit = SubmitField('submit')
+
+    def update(self, user):
+        self.populate_obj(user)
+
+        if self.password.data:
+            user.password = self.password.data
+        db.session.add(user)
+        db.session.commit()
+
+class CompanyEditForm(FlaskForm):
+    name = StringField('companyname')
+    email = StringField('e-mail', validators=[Required(),Email()])
+    password = PasswordField('password')
+    phone = StringField('phone number')
+    site = StringField('company web site', validators=[Length(0, 64)])
+    description = StringField('one word introduction', validators=[Length(0, 100)])
+    submit = SubmitField('submit')
+
+    def update(self, company):
+        company.name = self.name.data
+        company.email = self.email.data
+
+        if self.password.data:
+            company.password = self.password.data
+        if company.detail:
+            detail = company.detail
+        else:
+            detail = CompanyDetail()
+            detail.user_is = company.id
+        detail.site = self.site.data
+        detail.description = self.descirption.data
+        db.session.add(company)
+        db.session.add(detail)
+        db.session.commit()
+
+class JobForm(FlaskForm):
+    name = StringField('Job name')
+    salary_low = IntegerField('low salary')
+    salary_high = IntegerField('high salary')
+    location = StringField('location')
+    tags = StringField('job tags (multi )')
+    experience_requirement = SelectField(
+            'exprience',
+            choices=[
+                ('buxian', 'buxian'),
+                ('1', '1'),
+                ('2', '2'),
+                ('3', '3'),
+                ('1-3', '1-3'),
+                ('3-5', '3-5'),
+                ('5+' , '5+')
+                ]
+            )
+    degree_requirement = SelectField(
+            'exprience',
+            choidces=[
+                ('buxian', 'buxian'),
+                ('zhuanke', 'zhuanke'),
+                ('benke', 'benke'),
+                ('suoshi', 'suoshi'),
+                ('boshi', 'bushi'),
+                ])
+    description = TextAreaField('job description', validators=[Length(0, 1500)])
+    submit = SubmitField('disturte')
+
+    def create_job(self, company):
+        job = Job()
+        self.populate_obj(job)
+        job.company_id = company.id
+        db.session.add(job)
+        db.session.commit()
+
+        return job
+
+    def update_job(self, job):
+
+        self.populate_obj(job)
+        db.session.add(job)
+        db.session.commit()
+
+        return job
+
+

@@ -21,5 +21,4 @@ def profile():
         return redirect(url_for('front.index'))
     return render_template('user/profile.html', form=form)
 
-    return 'profile routing is doing ok '
 
