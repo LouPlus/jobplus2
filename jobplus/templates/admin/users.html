@@ -1,0 +1,66 @@
+{% extends "admin/index.html" %}
+
+{% from "macros.html" import render_pagination %}
+
+{% block title %}
+Admin -users
+{% endblock %}
+
+{% block operation %}
+<a href="{{ url_for('admin.create_user') }}"type="button" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria=hidden="true">
+    </span>
+
+    add User
+</a>
+
+<a href="{{ url_for('admin.create_company') }}" type="button" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+    </span>
+    add company
+</a>
+
+{% endblock %}
+
+{% block admin %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User/company</th>
+            <th>e-mail</th>
+            <th>phone </th>
+            <th>name</th>
+            <th>company website</th>
+            <th>operation </th>
+        </tr>
+        <tbody>
+        {% for user in pagination.items %}
+        <tr>
+            <td> {{ user.id }}</td>
+            <td> {{ user.name }} </td>
+            <td> {{% if user.is_company %}Company{% else %}job {% endif %}
+            </td>
+            <td>{{ user.email }}</td>
+            <td>{% if user.phone %}{{ user.phone }}{% else %}{% endif %}</td>
+            <td>{% if user.real_name %}{{ user.real_name }}{% else %}{% endif %}</td>
+            <td>{% if user.is_company %}{{ user.detail.site }}{% endif %}</td>
+            <td>
+                <div class="btn-group" role="group">
+                    <a href="{{ url_for('admin.edit_user', user_id=user.id)}}"type="button" class="btn btn-default" title="edit">
+                        edit
+                    </a>
+                    <a href="{{url_for('admin.diable_user', user_id=user.id)}"type="button" class="btn btn-default">
+                        {% if user.is_disable %}start up{% else %}forbiten{% endif %}
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </thead>
+</table>
+{{ render_pagination(pagination, 'admin.users') }}
+{% endblock %}
+
+
